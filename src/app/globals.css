@@ -5,22 +5,43 @@
   --foreground: #171717;
 }
 
+.slick-slide {
+  padding: 0 12px;
+}
+
+.room-slider .slick-list {
+  margin: 0 -12px;
+  padding: 4px 0 12px;
+}
+
+.room-slider .slick-dots {
+  bottom: -30px;
+}
+
+.room-slider .slick-dots li button:before {
+  color: #a36f35;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-raleway: var(--font-raleway);
+  --font-inter: var(--font-inter);
+  --font-dancing: var(--font-dancing-script);
+  --font-parisienne: var(--font-parisienne);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
