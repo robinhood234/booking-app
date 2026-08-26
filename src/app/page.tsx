@@ -1,9 +1,5 @@
 'use client'
-
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import { useRef } from "react";
+import useEmblaCarousel from 'embla-carousel-react';
 import Link from "next/link";
 import { rooms } from "@/data/getRooms";
 
@@ -22,17 +18,22 @@ const reviews = [
   { name: "Martin Murimi", image: "/night-client-two.png", quote: "Very welcoming. A great stay, and I would come back again." },
 ];
 
+const roomAmenities = [
+  ["/icons/wifi-good-svgrepo-com.svg", "Wi-Fi"],
+  ["/icons/bed-svgrepo-com.svg", "Bed"],
+  ["/icons/drink-tea-svgrepo-com.svg", "Tea"],
+  ["/icons/food-svgrepo-com.svg", "Breakfast"],
+];
+
 export default function Home() {
-  const sliderRef = useRef<Slider | null>(null);
-  const settings = {
-    dots: true,
-    arrows: false,
-    infinite: true,
-    speed: 450,
-    slidesToShow: 3,
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: 'start',
     slidesToScroll: 1,
-    responsive: [{ breakpoint: 1024, settings: { slidesToShow: 2 } }, { breakpoint: 640, settings: { slidesToShow: 1 } }],
-  };
+  });
+
+  const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
+  const scrollNext = () => emblaApi && emblaApi.scrollNext();
 
   return (
     <main className="bg-[#f5f1e9] text-[#24231f]">
@@ -57,7 +58,66 @@ export default function Home() {
 
       <section className="border-y border-[#dcd4c6] bg-[#ebe5d9] px-6 py-20 sm:px-10 lg:px-16 lg:py-24"><div className="mx-auto max-w-7xl"><div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p className="mb-3 font-inter text-sm font-semibold uppercase tracking-[0.2em] text-[#a36f35]">Make the day yours</p><h2 className="font-raleway text-4xl sm:text-6xl">Beyond the bed</h2></div><p className="max-w-sm font-inter text-[#5d5a52]">Thoughtful experiences connect your stay to the land, the people, and the sky.</p></div><div className="grid gap-px overflow-hidden border border-[#d5ccbd] bg-[#d5ccbd] sm:grid-cols-2 lg:grid-cols-3">{experiences.map((experience) => <Link href={`/about#${experience.slug}`} key={experience.slug} className="group bg-[#f5f1e9] p-7 transition hover:bg-white"><img src={experience.icon} alt="" className="mb-8 h-11 w-11" /><h3 className="font-raleway text-2xl">{experience.title}</h3><p className="mt-3 font-inter leading-7 text-[#656158]">{experience.text}</p><span className="mt-6 inline-flex font-inter text-sm font-semibold text-[#a36f35] opacity-0 transition group-hover:opacity-100">Explore feature →</span></Link>)}</div></div></section>
 
-      <section className="mx-auto max-w-7xl px-6 py-20 sm:px-10 lg:px-16 lg:py-28"><div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between"><div><p className="mb-3 font-inter text-sm font-semibold uppercase tracking-[0.2em] text-[#a36f35]">Choose your view</p><h2 className="font-raleway text-4xl sm:text-6xl">Find your star bed</h2></div><Link href="/book" className="font-inter text-sm font-semibold text-[#7b512b] underline underline-offset-8">See all rooms →</Link></div><div className="room-slider -mx-3"><Slider ref={sliderRef} {...settings}>{rooms.map((room) => <article key={room.id} className="overflow-hidden rounded-sm bg-white shadow-sm"><img src={room.img} alt={room.room} className="aspect-[4/3] w-full object-cover" /><div className="p-6"><div className="flex items-start justify-between gap-4"><h3 className="font-raleway text-2xl">{room.room}</h3><p className="whitespace-nowrap font-inter text-sm font-semibold text-[#a36f35]">${room.price}<span className="font-normal text-[#77736b]"> / night</span></p></div><p className="mt-3 line-clamp-2 font-inter leading-7 text-[#656158]">{room.details}</p><Link href={`/book/${room.slug}`} className="mt-6 inline-flex rounded-md bg-[#282820] px-5 py-3 font-inter text-sm font-semibold text-white transition hover:bg-[#a36f35]">View room</Link></div></article>)}</Slider></div><div className="mt-8 flex justify-end gap-3"><button type="button" aria-label="Previous room" onClick={() => sliderRef.current?.slickPrev()} className="h-11 w-11 rounded-full border border-[#bdb4a4] text-xl transition hover:bg-[#282820] hover:text-white">←</button><button type="button" aria-label="Next room" onClick={() => sliderRef.current?.slickNext()} className="h-11 w-11 rounded-full border border-[#bdb4a4] text-xl transition hover:bg-[#282820] hover:text-white">→</button></div></section>
+      <section className="mx-auto max-w-7xl px-6 py-20 sm:px-10 lg:px-16 lg:py-28"><div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between"><div><p className="mb-3 font-inter text-sm font-semibold uppercase tracking-[0.2em] text-[#a36f35]">Choose your view</p><h2 className="font-raleway text-4xl sm:text-6xl">Find your star bed</h2></div><Link href="/book" className="font-inter text-sm font-semibold text-[#7b512b] underline underline-offset-8">See all rooms →</Link></div>
+ <div className="room-slider -mx-3">
+        <div className="overflow-hidden" ref={emblaRef}>
+          <div className="flex">
+            {rooms.map((room) => (
+              <div
+                key={room.id}
+                className="min-w-0 flex-[0_0_100%] px-3 sm:flex-[0_0_50%] lg:flex-[0_0_33.333%]"
+              >
+                <article className="h-full overflow-hidden rounded-sm bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                  <div className="relative">
+                    <img src={room.img} alt={room.room} className="aspect-[4/3] w-full object-cover" />
+                    <div className="absolute bottom-0 left-1/2 hidden w-[78%] -translate-x-1/2 translate-y-1/2 items-center justify-around rounded-md bg-white px-3 py-3 shadow-lg md:flex">
+                      {roomAmenities.map(([icon, label]) => <span key={label} className="flex items-center gap-1.5 font-inter text-[10px] text-[#656158] sm:text-xs"><img src={icon} alt="" className="h-5 w-5" />{label}</span>)}
+                    </div>
+                  </div>
+                  <div className="p-6 pt-6 md:pt-10">
+                  <div className="flex items-start justify-between gap-4">
+                    <h3 className="font-raleway text-2xl">{room.room}</h3>
+                    <p className="whitespace-nowrap font-inter text-sm font-semibold text-[#a36f35]">
+                      ${room.price}
+                      <span className="font-normal text-[#77736b]"> / night</span>
+                    </p>
+                  </div>
+                  <p className="mt-3 line-clamp-2 font-inter leading-7 text-[#656158]">
+                    {room.details}
+                  </p>
+                  <Link
+                    href={`/book/${room.slug}`}
+                    className="mt-6 inline-flex rounded-md bg-[#282820] px-5 py-3 font-inter text-sm font-semibold text-white transition hover:bg-[#a36f35]">
+                    View room
+                  </Link>
+                  </div>
+                </article>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Controls */}
+      <div className="mt-8 flex justify-end gap-3">
+        <button
+          type="button"
+          aria-label="Previous room"
+          onClick={scrollPrev}
+          className="h-11 w-11 rounded-full border border-[#bdb4a4] text-xl transition hover:bg-[#282820] hover:text-white"
+        >
+          ←
+        </button>
+        <button
+          type="button"
+          aria-label="Next room"
+          onClick={scrollNext}
+          className="h-11 w-11 rounded-full border border-[#bdb4a4] text-xl transition hover:bg-[#282820] hover:text-white"
+        >
+          →
+        </button>
+      </div>
+   </section>
 
       <section className="relative overflow-hidden bg-[#282820] px-6 py-20 text-white sm:px-10 lg:px-16 lg:py-24"><div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2 lg:items-center"><div><p className="mb-3 font-inter text-sm font-semibold uppercase tracking-[0.2em] text-[#e7c889]">The night, understood</p><h2 className="font-raleway text-4xl leading-tight sm:text-6xl">A closer look at the cosmos.</h2><p className="mt-6 max-w-xl font-inter text-lg leading-8 text-white/70">Learn the constellations, hear the stories behind them, and see the universe with fresh eyes through our astro-tourism experience.</p><Link href="/about" className="mt-8 inline-flex rounded-md bg-white px-5 py-3 font-inter text-sm font-semibold text-[#282820] transition hover:bg-[#e7c889]">Discover astro-tourism</Link></div><video src="/VID-20260306-WA0002.mp4" muted loop autoPlay playsInline aria-label="Astro-tourism experience" className="aspect-video w-full rounded-sm object-cover opacity-90" /></div></section>
 
@@ -67,3 +127,6 @@ export default function Home() {
     </main>
   );
 }
+
+
+      // <div className="room-slider -mx-3"><Slider ref={sliderRef} {...settings}>{rooms.map((room) => <article key={room.id} className="overflow-hidden rounded-sm bg-white shadow-sm"><img src={room.img} alt={room.room} className="aspect-[4/3] w-full object-cover" /><div className="p-6"><div className="flex items-start justify-between gap-4"><h3 className="font-raleway text-2xl">{room.room}</h3><p className="whitespace-nowrap font-inter text-sm font-semibold text-[#a36f35]">${room.price}<span className="font-normal text-[#77736b]"> / night</span></p></div><p className="mt-3 line-clamp-2 font-inter leading-7 text-[#656158]">{room.details}</p><Link href={`/book/${room.slug}`} className="mt-6 inline-flex rounded-md bg-[#282820] px-5 py-3 font-inter text-sm font-semibold text-white transition hover:bg-[#a36f35]">View room</Link></div></article>)}</Slider></div><div className="mt-8 flex justify-end gap-3"><button type="button" aria-label="Previous room" onClick={() => sliderRef.current?.slickPrev()} className="h-11 w-11 rounded-full border border-[#bdb4a4] text-xl transition hover:bg-[#282820] hover:text-white">←</button><button type="button" aria-label="Next room" onClick={() => sliderRef.current?.slickNext()} className="h-11 w-11 rounded-full border border-[#bdb4a4] text-xl transition hover:bg-[#282820] hover:text-white">→</button></div>
