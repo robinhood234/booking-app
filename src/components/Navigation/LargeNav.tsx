@@ -1,61 +1,13 @@
 "use client"
-import Link from 'next/link'
-import { usePathname } from 'next/navigation';
-import React from 'react'
 
-const LargeNav = () => {
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
-   const pathname = usePathname();
+const links = [{ href: "/about", label: "About" }, { href: "/gallery", label: "Gallery" }, { href: "/contact", label: "Contact" }]
 
-const isActive = (path: string) => pathname == path;
-  return (
-    <div className='flex justify-between p-3 bg-background gap-1 shadow-md'>
-  
-  <Link href={"/"}>
-  
-      <div className='flex justify-center items-center gap-2'>    
-        <img src="/star-fall-svgrepo-com.svg" alt="" className='w-8 h-8' />   
-      <span className='text-2xl font-dancing'>Star Nights</span>
-      </div>
-  </Link>
+export default function LargeNav() {
+  const pathname = usePathname()
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`)
 
-    <div className='flex gap-x-6 items-center justify-center'>
-
-    <Link href={"/about"}>
-    
-     <button className={`${isActive('/about') ? "after:w-full" : "after:w-0 hover:after:w-full"} font-inter flex justify-center items-center gap-2 py-2 cursor-pointer rounded-md relative after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-black after:transition-all after:duration-300 after:ease-out hover:after:w-full`}> 
-        <span>About</span> 
-        </button>
-    </Link>
-
-    <Link href={"/gallery"}>
-        <button className={`${isActive('/gallery') ? "after:w-full" : "after:w-0 hover:after:w-full"} font-inter flex justify-center items-center gap-2 py-2 cursor-pointer rounded-md relative after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-black after:transition-all after:duration-300 after:ease-out hover:after:w-full`}> 
-        <span>Gallery</span> 
-        </button>
-    </Link>
-
-        <Link href={"/contact"}>
-        <button className={`${isActive('/contact') ? "after:w-full" : "after:w-0 hover:after:w-full"} font-inter flex justify-center items-center gap-2 py-2 cursor-pointer rounded-md relative after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-black after:transition-all after:duration-300 after:ease-out hover:after:w-full`}> 
-        <span>Contact</span> 
-        </button>
-        </Link>
-
-        <Link href={"/book"}>
-<button className="cursor-pointer group bg-gray-900 text-white px-4 py-2 rounded-lg shadow-md hover:bg-black flex items-center justify-center gap-2 " > 
-    <span className="transition-all duration-300">Book a room</span> 
-    {/* Arrow wrapper */} 
-    <span className=" w-0 overflow-hidden transition-all duration-300 ease-out group-hover:w-4 flex"> 
-        <img src="/icons/right-arrow-svgrepo-com.svg" alt="" className=" w-4 -translate-x-2 transition-all duration-300 ease-out group-hover:translate-x-0 " /> 
-        </span>
-         </button>
-        </Link>
-    </div>
-
-
-
-
-    </div>
-  )
+  return <header className="border-b border-[#e7e0d5] bg-[#f5f1e9]/95 px-6 shadow-sm backdrop-blur sm:px-10 lg:px-16"><nav aria-label="Primary navigation" className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-8"><Link href="/" className="shrink-0 font-raleway text-lg font-semibold uppercase tracking-[0.16em] text-[#282820]" aria-label="Star Nights Magadi home">Star Nights</Link><div className="flex items-center gap-7">{links.map((link) => <Link key={link.href} href={link.href} aria-current={isActive(link.href) ? "page" : undefined} className={`relative py-2 font-inter text-sm font-semibold transition after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-[#a36f35] after:transition-all ${isActive(link.href) ? "text-[#7b512b] after:w-full" : "text-[#656158] after:w-0 hover:text-[#282820] hover:after:w-full"}`}>{link.label}</Link>)}<Link href="/book" className="inline-flex items-center gap-3 rounded-md bg-[#282820] px-5 py-2.5 font-inter text-sm font-semibold text-white transition hover:bg-[#a36f35]">Book a room <span aria-hidden="true">→</span></Link></div></nav></header>
 }
-
-export default LargeNav

@@ -1,23 +1,10 @@
 "use client"
-import Link from 'next/link'
-import React, { useState } from 'react'
-import SideNav from '../SideNav';
 
-const MobileNav = () => {
-  const [open, setOpen] = useState(false);
-  
-  return (
-    <div className='flex justify-between p-3 bg-background gap-1 shadow-md'>
-        <Link href={"/"}>
-         <div className='flex justify-center items-center gap-2'>    
-        <img src="/star-fall-svgrepo-com.svg" alt="" className='w-8 h-8' />   
-      <span className='text-2xl font-dancing'>Star Nights</span>
-      </div>
-        </Link>
-        <img onClick={(e)=> setOpen(prev => !prev)} src="/icons/menu-svgrepo-com.svg" alt="" className='w-8 h-8'/>
-        <SideNav open={open} setOpen={setOpen}/>
-    </div>
-  )
+import Link from "next/link"
+import { useState } from "react"
+import SideNav from "./SideNav"
+
+export default function MobileNav() {
+  const [open, setOpen] = useState(false)
+  return <header className="border-b border-[#e7e0d5] bg-[#f5f1e9]/95 px-5 shadow-sm backdrop-blur"><nav aria-label="Mobile navigation" className="flex h-16 items-center justify-between"><Link href="/" className="font-raleway text-lg font-semibold uppercase tracking-[0.16em] text-[#282820]" aria-label="Star Nights Magadi home">Star Nights</Link><button type="button" onClick={() => setOpen(true)} aria-label="Open navigation menu" aria-expanded={open} className="flex h-10 w-10 items-center justify-center rounded-md border border-[#d5ccbd] text-xl text-[#282820] transition hover:bg-[#ebe5d9]">☰</button></nav><SideNav open={open} setOpen={setOpen} /></header>
 }
-
-export default MobileNav

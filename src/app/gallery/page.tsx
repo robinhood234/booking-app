@@ -10,9 +10,15 @@ const galleryImages = [
   { src: "/HeroImgTwo.jpg", alt: "A star bed beneath the night sky", title: "Sleep beneath the stars", className: "md:col-span-2 md:row-span-2" },
   { src: "/discover.webp", alt: "Open savannah surrounding the camp", title: "The Magadi landscape", className: "" },
   { src: "/HeroBg.webp", alt: "A peaceful room at Star Nights Magadi", title: "A room with a view", className: "" },
-  { src: "/RoomCards/Chef.jpg", alt: "Fresh food prepared for guests", title: "Gather around the table", className: "" },
-  { src: "/discover.webp", alt: "A guest enjoying a Star Nights experience", title: "Make it yours", className: "" },
-  { src: "/Hero-Image-0ne.jpeg", alt: "A quiet view across the Kajiado landscape", title: "Room to breathe", className: "md:col-span-2" },
+  { src: "/Star-nights.jpg", alt: "Star Nights Magadi beneath the evening sky", title: "The Star Nights welcome", className: "" },
+  { src: "/bird-sighting.jpg", alt: "A bird sighting in the Magadi landscape", title: "Bird watching", className: "" },
+  { src: "/car-tour.jpg", alt: "A guided tour through the landscape", title: "Explore further", className: "" },
+  { src: "/food-pic.jpg", alt: "Fresh food prepared for guests", title: "Gather around the table", className: "" },
+  { src: "/girrafes.jpg", alt: "Giraffes across the open landscape", title: "Wild horizons", className: "md:col-span-2" },
+  { src: "/spa.jpg", alt: "A peaceful spa experience", title: "Time to restore", className: "" },
+  { src: "/waterfall.jpg", alt: "Water flowing through the landscape", title: "Follow the water", className: "" },
+  { src: "/zebras-one.jpg", alt: "Zebras moving across the savannah", title: "Wildlife spotting", className: "" },
+  { src: "/zebras-two.jpg", alt: "Zebras in the Magadi landscape", title: "A day in the wild", className: "" },
 ];
 
 const sliderSettings = {

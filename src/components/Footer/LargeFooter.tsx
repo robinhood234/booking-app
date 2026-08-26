@@ -1,51 +1,7 @@
-import React from 'react'
+import Link from "next/link"
 
-const LargeFooter = () => {
-  return (
-    <div className="bg-gray-900 text-white p-8 text-center ">
-      <div className='flex flex-col gap-3 md:flex-row justify-between'>
-        <div className='flex flex-col w-[300px] gap-3 items-center items-start'>
-          <div className='flex gap-2'>
-          <img src="/star-fall-svgrepo-com.svg" alt="" className='w-10 h-10'/>
-          <h1 className='font-dancing text-3xl'>Star nights Magadi</h1>
-          </div>
+const footerLinks = [{ href: "/about", label: "About the stay" }, { href: "/gallery", label: "Gallery" }, { href: "/book", label: "Rooms and booking" }, { href: "/contact", label: "Contact us" }]
 
-          <span className='text-left text-gray-300/70'>Star nights Magadi is the epitome of slow travel with the highlight of the cabin, is its star gazing bed, draped in sheer white curtains offering an unfiltered view of the vast African night sky.</span>
-        </div>
-
-        <div className='flex flex-col gap-4 items-start w-[300px] justify-start '> 
-          <h2 className='text-3xl font-raleway '>Services</h2>
-          <ul className='list-disc list-inside space-y-4 text-gray-300/80'>
-            <li>Room Service</li>
-            <li>Room Service</li>
-            <li>Room Service</li>
-            <li>Room Service</li>
-            <li>Room Service</li>
-            <li>Room Service</li>
-          </ul>
-        </div>
-        <div className='flex flex-col gap-4 items-start w-[300px] justify-start '> 
-          <h2 className='text-3xl font-raleway '>Contact Us</h2>
-          <ul className='list-inside space-y-4 text-left text-gray-300/80'>
-            <li>
-              <h2>Phone Number</h2>
-              <span>+254 769 13 90 60</span>
-            </li>
-            <li>
-              <h2>Email</h2>
-              <span>stay@star-nights-magadi.com</span>
-            </li>
-             <li>
-              <h2>Location</h2>
-              <span>Kwenia, Kilonito, Kajiado West</span>
-            </li>
-          </ul>
-        </div>
-        
-      </div>
-    </div>
-
-  )
+export default function LargeFooter() {
+  return <footer className="bg-[#282820] px-6 py-14 text-white sm:px-10 lg:px-16 lg:py-18"><div className="mx-auto max-w-7xl"><div className="grid gap-12 border-b border-white/15 pb-12 md:grid-cols-[1.4fr_0.8fr_1fr]"><div className="max-w-md"><Link href="/" className="font-raleway text-xl font-semibold uppercase tracking-[0.14em]">Star Nights Magadi</Link><p className="mt-5 font-inter leading-7 text-white/60">Slow travel in the Kajiado landscape, with an open-air star bed and an unfiltered view of the African night sky.</p></div><div><h2 className="font-raleway text-2xl">Explore</h2><nav aria-label="Footer navigation" className="mt-5 flex flex-col items-start gap-3 font-inter text-sm text-white/60">{footerLinks.map((link) => <Link key={link.href} href={link.href} className="transition hover:text-[#e7c889]">{link.label}</Link>)}</nav></div><div><h2 className="font-raleway text-2xl">Reach us</h2><div className="mt-5 flex flex-col gap-3 font-inter text-sm text-white/60"><a href="tel:+254769139060" className="transition hover:text-[#e7c889]">+254 769 13 90 60</a><a href="mailto:stay@star-nights-magadi.com" className="break-words transition hover:text-[#e7c889]">stay@star-nights-magadi.com</a><p>Kwenia, Kilonito<br />Kajiado West</p></div></div></div><div className="flex flex-col gap-2 pt-6 font-inter text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between"><span>Star Nights Magadi</span><span>Come for the stars. Stay for the stillness.</span></div></div></footer>
 }
-
-export default LargeFooter
