@@ -4,7 +4,7 @@ const experiences = [
   {
     number: "01",
     slug: "bird-watching",
-    title: "Dine under open skies",
+    title: "Bird Watching",
     image: "/bird-sighting.jpg",
     alt: "Giraffes across the open landscape",
     text: "Follow vibrant sunbirds and soaring raptors across quiet open landscapes. Whether you are an avid birder or a curious beginner, the changing light and wide horizon make every walk rewarding.",
